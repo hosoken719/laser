@@ -1,0 +1,916 @@
+<title>レーザテック</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap');
+
+:root {
+  --orange: #F1833A;
+  --orange-dark: #D96E28;
+  --black: #0A0A0A;
+  --dark: #141414;
+  --dark2: #1C1C1C;
+  --light: #F5F2EE;
+  --white: #FFFFFF;
+  --text-on-dark: #E8E4DF;
+  --text-muted: #8A847A;
+  --text-body: #3A3632;
+  --border-dark: #2A2724;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--black);
+  color: var(--text-on-dark);
+  line-height: 1.8;
+  padding-inline: 0;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.wrap { max-width: 1100px; margin: 0 auto; padding-inline: 24px; }
+
+/* ========== HERO ========== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--black);
+}
+.hero-photo {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1738162837451-2041c1418f54?w=1920&q=80') center center / cover no-repeat;
+}
+.hero-photo::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.3) 40%, rgba(10,10,10,0.7) 100%),
+    linear-gradient(90deg, rgba(10,10,10,0.6) 0%, transparent 60%);
+}
+/* Animated laser beam */
+.hero-laser {
+  position: absolute;
+  top: 38%;
+  left: -20%;
+  width: 140%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--orange) 20%, #FFD4A8 50%, var(--orange) 80%, transparent 100%);
+  box-shadow: 0 0 30px rgba(241,131,58,0.6), 0 0 80px rgba(241,131,58,0.2);
+  animation: laserSlash 2.5s ease-out forwards;
+  opacity: 0;
+  z-index: 1;
+}
+@keyframes laserSlash {
+  0% { transform: translateX(-60%) rotate(-3deg); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translateX(0) rotate(-3deg); opacity: 0.6; }
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 24px;
+}
+.hero-tagline {
+  font-size: clamp(0.8rem, 1.5vw, 0.95rem);
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: var(--orange);
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: clamp(2rem, 6vw, 3.8rem);
+  font-weight: 900;
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  margin-bottom: 20px;
+  color: var(--white);
+  text-shadow: 0 2px 30px rgba(0,0,0,0.5);
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--orange);
+}
+.hero-sub {
+  font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+  font-weight: 300;
+  color: rgba(255,255,255,0.75);
+  max-width: 600px;
+  margin: 0 auto 44px;
+  line-height: 2;
+  text-shadow: 0 1px 12px rgba(0,0,0,0.6);
+}
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--orange);
+  color: var(--white);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 18px 44px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: background 0.25s, transform 0.25s;
+}
+.hero-cta:hover { background: var(--orange-dark); transform: translateY(-2px); }
+.hero-cta svg { width: 16px; height: 16px; fill: currentColor; }
+.hero-scroll {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+}
+.hero-scroll::after {
+  content: '';
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--orange), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+/* ========== Section shared ========== */
+.sec-dark { background: var(--dark); }
+.sec-black { background: var(--black); }
+
+.sec-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--orange);
+  margin-bottom: 16px;
+}
+.sec-title {
+  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  font-weight: 900;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  margin-bottom: 20px;
+}
+.sec-lead {
+  font-size: clamp(0.85rem, 1.6vw, 0.95rem);
+  font-weight: 300;
+  line-height: 2;
+  max-width: 640px;
+}
+.sec-lead.muted { color: var(--text-muted); }
+
+/* ========== PAIN ========== */
+.pain {
+  padding: 100px 0;
+  position: relative;
+}
+.pain::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(241,131,58,0.3), transparent);
+}
+.pain-header { margin-bottom: 56px; }
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.pain-card {
+  background: var(--dark2);
+  padding: 40px 32px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+.pain-card:hover { background: #222; }
+.pain-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.pain-card:hover::before { transform: scaleX(1); }
+.pain-icon { margin-bottom: 20px; line-height: 1; }
+.pain-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.pain-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.85;
+}
+
+/* ========== VISUAL BREAK (photo bg) ========== */
+.visual-break {
+  height: 420px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.visual-break-photo {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+.visual-break-photo::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(10,10,10,0.65);
+}
+.visual-break-text {
+  position: relative; z-index: 1;
+  text-align: center;
+}
+.visual-break-text .big {
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+  color: var(--white);
+  text-shadow: 0 2px 40px rgba(0,0,0,0.5);
+}
+.visual-break-text .big em {
+  font-style: normal;
+  color: var(--orange);
+}
+.visual-break-text .small {
+  font-size: clamp(0.75rem, 1.3vw, 0.85rem);
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.6);
+  margin-top: 16px;
+}
+
+/* ========== SOLUTION ========== */
+.solution { padding: 100px 0 0; }
+.solution-header {
+  text-align: center;
+  margin-bottom: 72px;
+}
+.solution-header .sec-lead { margin: 0 auto; }
+
+.sol-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin-bottom: 2px;
+  min-height: 480px;
+}
+.sol-photo {
+  position: relative;
+  overflow: hidden;
+  min-height: 360px;
+}
+.sol-photo-img {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 8s ease;
+}
+.sol-photo:hover .sol-photo-img { transform: scale(1.05); }
+.sol-photo::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.15) 100%);
+}
+.sol-photo .label-big {
+  position: absolute;
+  bottom: 24px; left: 28px;
+  font-size: clamp(3rem, 5vw, 5rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: rgba(255,255,255,0.12);
+  line-height: 1;
+  z-index: 1;
+}
+
+.sol-text {
+  background: var(--dark2);
+  padding: 52px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.sol-num {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--orange);
+  margin-bottom: 16px;
+}
+.sol-text h3 {
+  font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+  font-weight: 900;
+  margin-bottom: 16px;
+  line-height: 1.45;
+}
+.sol-text p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.95;
+  margin-bottom: 20px;
+}
+.sol-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.sol-chip {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--orange);
+  border: 1px solid rgba(241,131,58,0.3);
+  padding: 5px 14px;
+  letter-spacing: 0.03em;
+}
+
+/* ========== SPEC BANNER ========== */
+.spec-banner {
+  background: var(--dark2);
+  padding: 80px 0;
+  position: relative;
+}
+.spec-banner::before,
+.spec-banner::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(241,131,58,0.2), transparent);
+}
+.spec-banner::before { top: 0; }
+.spec-banner::after { bottom: 0; }
+.spec-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  text-align: center;
+}
+.spec-item {
+  padding: 24px 16px;
+  position: relative;
+}
+.spec-item + .spec-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 20%; bottom: 20%;
+  width: 1px;
+  background: var(--border-dark);
+}
+.spec-val {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.spec-val small {
+  font-size: 0.4em;
+  font-weight: 500;
+  color: var(--orange);
+}
+.spec-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  letter-spacing: 0.04em;
+}
+
+/* ========== FLOW ========== */
+.flow { padding: 100px 0; }
+.flow-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.flow-timeline {
+  display: flex;
+  gap: 0;
+  position: relative;
+}
+.flow-timeline::before {
+  content: '';
+  position: absolute;
+  top: 32px;
+  left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--orange), var(--orange), transparent);
+  opacity: 0.3;
+}
+.flow-step {
+  flex: 1;
+  text-align: center;
+  padding: 0 12px;
+  position: relative;
+}
+.flow-dot {
+  width: 64px; height: 64px;
+  margin: 0 auto 20px;
+  border: 1px solid rgba(241,131,58,0.4);
+  background: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+.flow-dot span {
+  font-size: 0.7rem;
+  font-weight: 900;
+  color: var(--orange);
+  letter-spacing: 0.05em;
+}
+.flow-step h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--white);
+}
+.flow-step p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ========== FAQ ========== */
+.faq {
+  padding: 100px 0;
+  background: var(--dark2);
+}
+.faq-header { margin-bottom: 48px; }
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  max-width: 760px;
+}
+.faq-item { background: var(--dark); }
+.faq-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 28px;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-on-dark);
+  text-align: left;
+  cursor: pointer;
+  line-height: 1.55;
+}
+.faq-q::before {
+  content: 'Q';
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  font-size: 0.7rem;
+  font-weight: 900;
+  color: var(--orange);
+  border: 1px solid var(--orange);
+}
+.faq-q .toggle {
+  margin-left: auto;
+  flex-shrink: 0;
+  width: 20px; height: 20px;
+  position: relative;
+}
+.faq-q .toggle::before,
+.faq-q .toggle::after {
+  content: '';
+  position: absolute;
+  background: var(--text-muted);
+  transition: transform 0.3s;
+}
+.faq-q .toggle::before {
+  top: 50%; left: 4px; right: 4px;
+  height: 1px;
+  transform: translateY(-50%);
+}
+.faq-q .toggle::after {
+  left: 50%; top: 4px; bottom: 4px;
+  width: 1px;
+  transform: translateX(-50%);
+}
+.faq-item.open .faq-q .toggle::after { transform: translateX(-50%) rotate(90deg); opacity: 0; }
+.faq-a {
+  display: none;
+  padding: 0 28px 24px 76px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.9;
+}
+.faq-item.open .faq-a { display: block; }
+
+/* ========== CTA ========== */
+.cta-section {
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+.cta-photo {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1647586028042-1de4d4a935e6?w=1920&q=80') center center / cover no-repeat;
+}
+.cta-photo::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(10,10,10,0.78);
+}
+.cta-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 120px 24px;
+}
+.cta-section h2 {
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.cta-section .sub {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+.cta-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.cta-phone {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--white);
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.cta-phone svg { width: 22px; height: 22px; stroke: var(--orange); fill: none; stroke-width: 1.5; }
+.cta-email {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.cta-email:hover { color: var(--orange); border-color: var(--orange); }
+
+/* ========== FOOTER ========== */
+.footer {
+  background: var(--dark2);
+  padding: 40px 0;
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  border-top: 1px solid var(--border-dark);
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+  .pain-grid { grid-template-columns: 1fr; }
+  .sol-block { grid-template-columns: 1fr; }
+  .sol-photo { min-height: 260px; }
+  .sol-block:nth-child(even) .sol-photo { order: 0; }
+  .sol-text { padding: 36px 28px; }
+  .spec-row { grid-template-columns: repeat(2, 1fr); gap: 1px; }
+  .spec-item + .spec-item::before { display: none; }
+  .flow-timeline {
+    flex-direction: column;
+    gap: 0;
+    padding-left: 40px;
+  }
+  .flow-timeline::before {
+    top: 0; bottom: 0;
+    left: 31px; right: auto;
+    width: 1px; height: auto;
+  }
+  .flow-step {
+    text-align: left;
+    padding: 0 0 32px 28px;
+  }
+  .flow-dot {
+    position: absolute;
+    left: -40px;
+    width: 48px; height: 48px;
+    margin: 0;
+  }
+  .visual-break { height: 300px; }
+}
+@media (max-width: 480px) {
+  .wrap { padding-inline: 16px; }
+  .hero { min-height: 90vh; min-height: 90svh; }
+  .pain, .solution, .flow { padding: 64px 0; }
+  .solution { padding-bottom: 0; }
+  .spec-row { grid-template-columns: 1fr 1fr; }
+}
+</style>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-photo"></div>
+  <div class="hero-laser"></div>
+  <div class="hero-content">
+    <p class="hero-tagline">その一つひとつに息吹を吹き込む</p>
+    <h1>加工先、<em>何社</em>に分けてますか？</h1>
+    <p class="hero-sub">レーザー加工・曲げ・溶接・塗装まで、まとめて1社で。<br>単品・試作も最短で対応します。</p>
+    <a href="https://www.lasertec.nagoya/contact/index.html" class="hero-cta">
+      図面1枚からご相談
+      <svg viewBox="0 0 20 20"><path d="M5 10h10M11 6l4 4-4 4"/></svg>
+    </a>
+  </div>
+  <div class="hero-scroll">SCROLL</div>
+</section>
+
+<!-- ===== PAIN ===== -->
+<section class="pain sec-dark">
+  <div class="wrap">
+    <div class="pain-header">
+      <p class="sec-label">ISSUE</p>
+      <h2 class="sec-title">こんな課題、抱えていませんか？</h2>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2" style="color:var(--orange)">
+            <rect x="3" y="6" width="12" height="24" rx="1"/><rect x="21" y="6" width="12" height="24" rx="1"/><path d="M15 14h6M15 22h6" stroke-dasharray="2 2"/>
+          </svg>
+        </div>
+        <h3>工程ごとに発注先がバラバラ</h3>
+        <p>レーザーはA社、曲げはB社、溶接はC社。窓口が増えるたびに管理コストとミスが膨らみ、品質のばらつきが止まらない。</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2" style="color:var(--orange)">
+            <circle cx="18" cy="18" r="13"/><polyline points="18 10 18 18 24 22"/><path d="M28 8l3-3M8 8L5 5" stroke-dasharray="2 2"/>
+          </svg>
+        </div>
+        <h3>試作・小ロットの納期が長い</h3>
+        <p>量産ラインの合間に入れてもらう形で、試作1個でも数週間待ち。急ぎの案件が後回しにされ、開発が止まる。</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2" style="color:var(--orange)">
+            <path d="M18 6L6 30h24L18 6z"/><path d="M10 20c4-6 12-6 16 0" stroke-dasharray="3 2"/><circle cx="18" cy="24" r="1.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3>3D形状の加工先が見つからない</h3>
+        <p>パイプや成形済み部品のトリミングなど、立体物のレーザー加工に対応できる業者が限られ、選択肢がない。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VISUAL BREAK ===== -->
+<section class="visual-break">
+  <div class="visual-break-photo" style="background-image:url('https://images.unsplash.com/photo-1759159347860-4941402d9e9b?w=1920&q=80')"></div>
+  <div class="visual-break-text">
+    <p class="big">レーザテックの<em>強み</em></p>
+    <p class="small">STRENGTH</p>
+  </div>
+</section>
+
+<!-- ===== SOLUTION ===== -->
+<section class="solution sec-black">
+  <div class="wrap">
+    <div class="solution-header">
+      <p class="sec-label">STRENGTH</p>
+      <h2 class="sec-title">レーザテックにお任せください。</h2>
+      <p class="sec-lead muted">1989年の創業以来、名古屋の地で板金レーザー加工一筋。自動車・食品・建築・家電など170社以上の現場を支えてきました。</p>
+    </div>
+  </div>
+
+  <!-- Solution 1: 一貫生産 -->
+  <div class="sol-block">
+    <div class="sol-photo">
+      <div class="sol-photo-img" style="background-image:url('https://images.unsplash.com/photo-1738162837619-5d0b158abcec?w=1200&q=80')"></div>
+      <span class="label-big">01</span>
+    </div>
+    <div class="sol-text">
+      <p class="sol-num">STRENGTH 01</p>
+      <h3>加工から塗装手配まで、窓口ひとつ</h3>
+      <p>レーザー加工・曲げ・溶接を自社で対応し、塗装は協力会社と連携して手配。お客様の窓口はひとつだけ。工程間の伝達ミスを減らし、品質のブレを最小化します。名古屋市内に複数拠点を構え、柔軟な生産管理を行っています。</p>
+      <div class="sol-chips">
+        <span class="sol-chip">加工</span>
+        <span class="sol-chip">曲げ</span>
+        <span class="sol-chip">溶接</span>
+        <span class="sol-chip">塗装</span>
+        <span class="sol-chip">一括管理</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Solution 2: 短納期 -->
+  <div class="sol-block">
+    <div class="sol-text">
+      <p class="sol-num">STRENGTH 02</p>
+      <h3>単品・試作を最速で届ける</h3>
+      <p>ファイバ・CO2レーザ加工機を7台以上保有し、夜間自動運転で生産キャパを確保。図面データ（DXF/DWG/JWW）をそのままCAD/CAMシステムに流し込み、段取り時間を圧縮。多品種小ロットを得意とし、単品の"割り込み"にも柔軟に対応します。</p>
+      <div class="sol-chips">
+        <span class="sol-chip">レーザー加工機 7台+</span>
+        <span class="sol-chip">夜間自動運転</span>
+        <span class="sol-chip">DXF/DWG/JWW対応</span>
+      </div>
+    </div>
+    <div class="sol-photo">
+      <div class="sol-photo-img" style="background-image:url('https://images.unsplash.com/photo-1764245546004-e6b743242a80?w=1200&q=80')"></div>
+      <span class="label-big">02</span>
+    </div>
+  </div>
+
+  <!-- Solution 3: 3Dレーザ -->
+  <div class="sol-block">
+    <div class="sol-photo">
+      <div class="sol-photo-img" style="background-image:url('https://images.unsplash.com/photo-1543674892-7d64d45df18b?w=1200&q=80')"></div>
+      <span class="label-big">03</span>
+    </div>
+    <div class="sol-text">
+      <p class="sol-num">STRENGTH 03</p>
+      <h3>立体・異形状もレーザーで対応</h3>
+      <p>三菱製3Dレーザ加工機を3台保有し、3次元レーザ加工ヘッドが自由自在に材料を切断。パイプ、長尺材、プレス成形後の部品トリミングなど、立体物の加工を得意としています。CAD/CAMシステムとの連動で複雑形状も高精度に再現し、CATIAデータにも対応可能です。</p>
+      <div class="sol-chips">
+        <span class="sol-chip">3Dレーザ加工機 3台</span>
+        <span class="sol-chip">パイプ加工</span>
+        <span class="sol-chip">CATIA対応</span>
+        <span class="sol-chip">3D-SAT/STEP/IGES</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SPEC BANNER ===== -->
+<section class="spec-banner">
+  <div class="wrap">
+    <div class="spec-row">
+      <div class="spec-item">
+        <div class="spec-val">170<small>社+</small></div>
+        <div class="spec-label">取引先実績</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-val">19<small>mm</small></div>
+        <div class="spec-label">SS材 最大板厚</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-val">10<small>台+</small></div>
+        <div class="spec-label">レーザー加工機</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-val">35<small>年+</small></div>
+        <div class="spec-label">創業からの実績</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FLOW ===== -->
+<section class="flow sec-dark">
+  <div class="wrap">
+    <div class="flow-header">
+      <p class="sec-label">FLOW</p>
+      <h2 class="sec-title">ご利用の流れ</h2>
+    </div>
+    <div class="flow-timeline">
+      <div class="flow-step">
+        <div class="flow-dot"><span>01</span></div>
+        <h4>図面を送る</h4>
+        <p>手書き・DXF・PDF<br>なんでもOK</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-dot"><span>02</span></div>
+        <h4>見積もり回答</h4>
+        <p>最短即日で<br>お見積り提示</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-dot"><span>03</span></div>
+        <h4>打合せ</h4>
+        <p>来社または電話で<br>仕様を確定</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-dot"><span>04</span></div>
+        <h4>製作・加工</h4>
+        <p>一貫管理で<br>工程を最適化</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-dot"><span>05</span></div>
+        <h4>出荷</h4>
+        <p>納品タイミングに<br>合わせて保管も可</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="faq">
+  <div class="wrap">
+    <div class="faq-header">
+      <p class="sec-label">FAQ</p>
+      <h2 class="sec-title">よくあるご質問</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" type="button">1個からでも対応できますか？<span class="toggle"></span></button>
+        <div class="faq-a">はい、単品・試作品から対応しています。多品種小ロットを得意としており、夜間自動運転を含む生産体制で短納期にお届けします。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">塗装だけ、溶接だけでも頼めますか？<span class="toggle"></span></button>
+        <div class="faq-a">もちろんです。一貫対応が強みですが、特定の工程だけのご依頼も承っています。お気軽にご相談ください。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">特殊な素材でも加工できますか？<span class="toggle"></span></button>
+        <div class="faq-a">スチール・ステンレス・アルミのほか、銅（8mm）、真鍮（12mm）、アクリル、樹脂、ゴム、パンチングメタルなど様々な特殊材の加工実績があります。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">図面がないのですが…<span class="toggle"></span></button>
+        <div class="faq-a">手書きのスケッチや現物からの加工にも対応可能です。まずはお電話またはメールでご相談いただければ、最適な方法をご提案します。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">対応できる図面データの形式は？<span class="toggle"></span></button>
+        <div class="faq-a">2D：DXF/DWG/JWW、3D：SAT/STEP/IGESに対応しています。CATIAデータからの加工も可能です。もちろんPDFや手書き図面でもお受けします。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-section">
+  <div class="cta-photo"></div>
+  <div class="cta-inner">
+    <p class="sec-label">CONTACT</p>
+    <h2>まずは図面1枚、<br>お送りください。</h2>
+    <p class="sub">最短即日でお見積もりします。</p>
+    <div class="cta-actions">
+      <a href="https://www.lasertec.nagoya/contact/index.html" class="hero-cta">
+        お問い合わせ・見積もり依頼
+        <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path d="M5 10h10M11 6l4 4-4 4"/></svg>
+      </a>
+    </div>
+    <div class="cta-actions">
+      <a href="tel:052-655-9333" class="cta-phone">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        052-655-9333
+      </a>
+      <a href="mailto:lasertec@snow.ocn.ne.jp" class="cta-email">lasertec@snow.ocn.ne.jp</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="wrap">
+    株式会社レーザテック｜名古屋市中川区十一番町5丁目1番地-1<br>
+    © LASERTEC Co., Ltd.
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.faq-q').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var item=this.closest('.faq-item');
+    var open=item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(function(el){el.classList.remove('open')});
+    if(!open)item.classList.add('open');
+  });
+});
+</script>
