@@ -21,6 +21,9 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+html {
+  background: #fff;
+}
 body {
   font-family: 'Noto Sans JP', sans-serif;
   background: var(--black);
@@ -32,6 +35,36 @@ body {
 }
 
 .wrap { max-width: 1100px; margin: 0 auto; padding-inline: 24px; }
+
+/* ========== SITE HEADER ========== */
+.site-header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: #fff;
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.site-header img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+.site-header-tel {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--black);
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.site-header-tel svg {
+  width: 14px; height: 14px;
+  fill: var(--orange);
+}
 
 /* ========== HERO ========== */
 .hero {
@@ -230,7 +263,7 @@ body {
 
 /* ========== VISUAL BREAK (photo bg) ========== */
 .visual-break {
-  height: 420px;
+  height: 500px;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -267,16 +300,19 @@ body {
   font-size: clamp(0.75rem, 1.3vw, 0.85rem);
   letter-spacing: 0.15em;
   color: rgba(255,255,255,0.6);
-  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.visual-break-text .vb-desc {
+  font-size: clamp(0.8rem, 1.4vw, 0.9rem);
+  font-weight: 300;
+  color: rgba(255,255,255,0.55);
+  line-height: 2;
+  margin-top: 24px;
+  letter-spacing: 0.02em;
 }
 
 /* ========== SOLUTION ========== */
-.solution { padding: 100px 0 0; }
-.solution-header {
-  text-align: center;
-  margin-bottom: 72px;
-}
-.solution-header .sec-lead { margin: 0 auto; }
+.solution { padding: 0; }
 
 .sol-block {
   display: grid;
@@ -652,6 +688,14 @@ body {
 </style>
 
 <!-- ===== HERO ===== -->
+<header class="site-header">
+  <img src="https://www.lasertec.nagoya/images/logo.gif" alt="株式会社レーザテック">
+  <div class="site-header-tel">
+    <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
+    052-655-9333
+  </div>
+</header>
+
 <section class="hero">
   <div class="hero-photo"></div>
   <div class="hero-laser"></div>
@@ -706,24 +750,18 @@ body {
   </div>
 </section>
 
-<!-- ===== VISUAL BREAK ===== -->
+<!-- ===== VISUAL BREAK + SOLUTION HEADER ===== -->
 <section class="visual-break">
   <div class="visual-break-photo" style="background-image:url('https://images.unsplash.com/photo-1759159347860-4941402d9e9b?w=1920&q=80')"></div>
   <div class="visual-break-text">
-    <p class="big">レーザテックの<em>強み</em></p>
     <p class="small">STRENGTH</p>
+    <p class="big">レーザテックに<em>お任せ</em>ください。</p>
+    <p class="vb-desc">1989年の創業以来、名古屋の地で板金レーザー加工一筋。<br>自動車・食品・建築・家電など170社以上の現場を支えてきました。</p>
   </div>
 </section>
 
 <!-- ===== SOLUTION ===== -->
 <section class="solution sec-black">
-  <div class="wrap">
-    <div class="solution-header">
-      <p class="sec-label">STRENGTH</p>
-      <h2 class="sec-title">レーザテックにお任せください。</h2>
-      <p class="sec-lead muted">1989年の創業以来、名古屋の地で板金レーザー加工一筋。自動車・食品・建築・家電など170社以上の現場を支えてきました。</p>
-    </div>
-  </div>
 
   <!-- Solution 1: 一貫生産 -->
   <div class="sol-block">
