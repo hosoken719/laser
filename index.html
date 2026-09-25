@@ -52,10 +52,15 @@ body {
   width: auto;
   display: block;
 }
-.site-header-tel {
+.site-header-tel,
+.site-header-tel:link,
+.site-header-tel:visited,
+.site-header-tel:hover,
+.site-header-tel:active {
   font-size: 0.8rem;
   font-weight: 700;
-  color: var(--black);
+  color: var(--black) !important;
+  text-decoration: none;
   letter-spacing: 0.04em;
   display: flex;
   align-items: center;
@@ -690,10 +695,10 @@ body {
 <!-- ===== HERO ===== -->
 <header class="site-header">
   <img src="https://www.lasertec.nagoya/images/logo.gif" alt="株式会社レーザテック">
-  <div class="site-header-tel">
-    <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
+  <a href="tel:052-655-9333" class="site-header-tel" aria-label="052-655-9333に電話する">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
     052-655-9333
-  </div>
+  </a>
 </header>
 
 <section class="hero">
